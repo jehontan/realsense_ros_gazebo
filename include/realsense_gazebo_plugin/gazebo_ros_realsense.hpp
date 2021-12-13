@@ -1,16 +1,16 @@
 #ifndef _GAZEBO_ROS_REALSENSE_PLUGIN_
 #define _GAZEBO_ROS_REALSENSE_PLUGIN_
 
-#include "realsense_gazebo_plugin/RealSensePlugin.h"
+#include "realsense_gazebo_plugin/RealSensePlugin.hpp"
 
-#include <ros/ros.h>
-#include <sensor_msgs/CameraInfo.h>
-#include <sensor_msgs/Image.h>
-#include <sensor_msgs/PointCloud2.h>
-#include <sensor_msgs/image_encodings.h>
+#include <rclcpp/rclcpp.hpp>
+#include <sensor_msgs/msg/camera_info.hpp>
+#include <sensor_msgs/msg/image.hpp>
+#include <sensor_msgs/msg/point_cloud2.hpp>
+#include <sensor_msgs/image_encodings.hpp>
 
-#include <camera_info_manager/camera_info_manager.h>
-#include <image_transport/image_transport.h>
+#include <camera_info_manager/camera_info_manager.hpp>
+#include <image_transport/image_transport.hpp>
 
 #include <memory>
 #include <string>
@@ -46,17 +46,17 @@ public:
                           const transport::PublisherPtr pub);
 
 protected:
-  boost::shared_ptr<camera_info_manager::CameraInfoManager>
+  std::shared_ptr<camera_info_manager::CameraInfoManager>
       camera_info_manager_;
 
   /// \brief A pointer to the ROS node.
   ///  A node will be instantiated if it does not exist.
 protected:
-  ros::NodeHandle *rosnode_;
+  std::shared_ptr<rclcpp::Node> rosnode_;
 
 private:
-  image_transport::ImageTransport *itnode_;
-  ros::Publisher pointcloud_pub_;
+  std::shared_ptr<image_transport::ImageTransport> itnode_;
+  std::shared_ptr<rclcpp::Publisher> pointcloud_pub_;
 
 protected:
   image_transport::CameraPublisher color_pub_, ir1_pub_, ir2_pub_, depth_pub_;
