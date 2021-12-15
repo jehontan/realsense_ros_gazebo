@@ -1,23 +1,5 @@
 cmake_minimum_required(VERSION 3.5)
-project(realsense_ros2_gazebo)
-
-# ROS1 Reference
-# find_package(catkin REQUIRED COMPONENTS
-#   gazebo_dev
-#   gazebo_msgs
-#   rclcpp
-#   nodelet
-#   sensor_msgs
-#   urdf
-#   tf
-#   tf2_ros
-#   rosconsole
-#   diagnostic_updater
-#   std_msgs
-#   gazebo_ros
-#   image_transport
-#   camera_info_manager
-# )
+project(realsense_ros_gazebo)
 
 find_package(ament_cmake REQUIRED)
 find_package(gazebo_dev REQUIRED)
@@ -91,9 +73,17 @@ install (TARGETS realsense_gazebo_plugin
 )
 
 install(DIRECTORY meshes
-    DESTINATION share
+    DESTINATION share/${PROJECT_NAME}
+)
+
+install(DIRECTORY urdf
+    DESTINATION share/${PROJECT_NAME}
 )
 
 install(DIRECTORY xacro
-    DESTINATION share
+    DESTINATION share/${PROJECT_NAME}
+)
+
+install(DIRECTORY launch
+    DESTINATION share/${PROJECT_NAME}
 )

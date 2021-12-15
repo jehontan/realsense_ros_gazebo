@@ -36,7 +36,7 @@ public:
   virtual void OnNewDepthFrame();
 
   /// \brief Helper function to fill the pointcloud information
-  bool FillPointCloudHelper(sensor_msgs::PointCloud2 &point_cloud_msg, uint32_t rows_arg,
+  bool FillPointCloudHelper(sensor_msgs::msg::PointCloud2 &point_cloud_msg, uint32_t rows_arg,
                             uint32_t cols_arg, uint32_t step_arg, void *data_arg);
 
   /// \brief Callback that publishes a received Camera Frame as an
@@ -56,15 +56,15 @@ protected:
 
 private:
   std::shared_ptr<image_transport::ImageTransport> itnode_;
-  std::shared_ptr<rclcpp::Publisher> pointcloud_pub_;
+  std::shared_ptr<rclcpp::Publisher<sensor_msgs::msg::PointCloud2>> pointcloud_pub_;
 
 protected:
   image_transport::CameraPublisher color_pub_, ir1_pub_, ir2_pub_, depth_pub_;
 
   /// \brief ROS image messages
 protected:
-  sensor_msgs::Image image_msg_, depth_msg_;
-  sensor_msgs::PointCloud2 pointcloud_msg_;
+  sensor_msgs::msg::Image image_msg_, depth_msg_;
+  sensor_msgs::msg::PointCloud2 pointcloud_msg_;
 };
 }
 #endif /* _GAZEBO_ROS_REALSENSE_PLUGIN_ */
