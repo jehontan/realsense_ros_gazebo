@@ -44,13 +44,13 @@ void GazeboRosRealsense::Load(physics::ModelPtr _model, sdf::ElementPtr _sdf) {
   this->itnode_ = std::make_shared<image_transport::ImageTransport>(this->rosnode_);
 
   this->color_pub_ = this->itnode_->advertiseCamera(
-      cameraParamsMap_[COLOR_CAMERA_NAME].topic_name, 2);
+      cameraParamsMap_[COLOR_CAMERA_NAME].topic_name, 2, false);
   this->ir1_pub_ = this->itnode_->advertiseCamera(
-      cameraParamsMap_[IRED1_CAMERA_NAME].topic_name, 2);
+      cameraParamsMap_[IRED1_CAMERA_NAME].topic_name, 2, false);
   this->ir2_pub_ = this->itnode_->advertiseCamera(
-      cameraParamsMap_[IRED2_CAMERA_NAME].topic_name, 2);
+      cameraParamsMap_[IRED2_CAMERA_NAME].topic_name, 2, false);
   this->depth_pub_ = this->itnode_->advertiseCamera(
-      cameraParamsMap_[DEPTH_CAMERA_NAME].topic_name, 2);
+      cameraParamsMap_[DEPTH_CAMERA_NAME].topic_name, 2, false);
   if (pointCloud_)
   {
     this->pointcloud_pub_ = 
@@ -98,7 +98,6 @@ void GazeboRosRealsense::OnNewFrame(const rendering::CameraPtr cam,
 
   // publish to ROS
   auto camera_info_msg =
-  
       cameraInfo(this->image_msg_, cameras.at(camera_id)->HFOV().Radian());
   image_pub->publish(this->image_msg_, camera_info_msg);
 }
